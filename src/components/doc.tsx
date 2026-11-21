@@ -4,29 +4,47 @@ import { Button } from "@/components/ui/button"
 
 export function CodeBlock({ code, title }: { code: string; title?: string }) {
   return (
-    <figure className="overflow-hidden rounded-xl bg-[#241c16] text-[#f6f1e7] ring-1 ring-black/10">
+    <figure className="overflow-hidden rounded-lg border bg-muted/60">
       {title ? (
-        <figcaption className="border-b border-white/10 px-4 py-2 font-mono text-[11px] tracking-[0.08em] text-[#f6f1e7]/65 uppercase">
+        <figcaption className="border-b px-3 py-1.5 text-xs text-muted-foreground">
           {title}
         </figcaption>
       ) : null}
-      <pre className="overflow-x-auto p-4 text-[13px] leading-6">
+      <pre className="overflow-x-auto p-3 text-[13px] leading-6">
         <code>{code}</code>
       </pre>
     </figure>
   )
 }
 
-export function H3({ id, children }: { id?: string; children: ReactNode }) {
+export function Article({
+  kicker,
+  title,
+  children,
+}: {
+  kicker: string
+  title: string
+  children: ReactNode
+}) {
   return (
-    <h3 id={id} className="scroll-mt-28 font-serif text-2xl tracking-tight text-foreground">
+    <article className="mx-auto w-full max-w-3xl px-6 py-8 sm:px-10 sm:py-10">
+      <p className="text-sm text-muted-foreground">{kicker}</p>
+      <h1 className="mt-1 text-3xl font-semibold tracking-tight">{title}</h1>
+      <div className="mt-8 space-y-5 text-[15px] leading-7">{children}</div>
+    </article>
+  )
+}
+
+export function H2({ id, children }: { id?: string; children: ReactNode }) {
+  return (
+    <h2 id={id} className="scroll-mt-20 pt-2 text-xl font-semibold tracking-tight">
       {children}
-    </h3>
+    </h2>
   )
 }
 
 export function P({ children }: { children: ReactNode }) {
-  return <p className="text-[16.5px] leading-7 text-foreground/90">{children}</p>
+  return <p>{children}</p>
 }
 
 export function Ext({ href, children }: { href: string; children: ReactNode }) {
@@ -44,8 +62,12 @@ export function Ext({ href, children }: { href: string; children: ReactNode }) {
 
 export function K({ children }: { children: ReactNode }) {
   return (
-    <code className="rounded bg-secondary px-1.5 py-0.5 text-[0.86em] text-foreground">{children}</code>
+    <code className="rounded-md bg-muted px-1.5 py-0.5 text-[0.88em]">{children}</code>
   )
+}
+
+export function Ul({ children }: { children: ReactNode }) {
+  return <ul className="list-disc space-y-1.5 pl-5">{children}</ul>
 }
 
 export function DocTable({
@@ -71,8 +93,8 @@ export function DocTable({
           {rows.map((row) => (
             <tr key={row.join("|")} className="border-t border-border bg-card">
               {row.map((cell) => (
-                <td key={cell} className="px-3 py-2 align-top text-foreground/90">
-                  <code className="font-mono text-[12.5px]">{cell}</code>
+                <td key={cell} className="px-3 py-2 align-top">
+                  {cell}
                 </td>
               ))}
             </tr>

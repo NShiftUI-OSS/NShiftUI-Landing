@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#1c1915"/>
-  <path d="M6 22c3.2-8 6.2-8 9.2 0s6 8 10.8 0" fill="none" stroke="#f4efe4" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M6 16c3.2-6 6.2-6 9.2 0s6 6 10.8 0" fill="none" stroke="#c4552a" stroke-width="2.2" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<defs>
+  <linearGradient id="base" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#111a29"/><stop offset="1" stop-color="#05070f"/></linearGradient>
+  <linearGradient id="lower" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#616e82"/><stop offset="1" stop-color="#232936"/></linearGradient>
+  <linearGradient id="middle" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#aeb8c9"/><stop offset="1" stop-color="#6e788a"/></linearGradient>
+  <linearGradient id="upper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f0f2fa"/><stop offset="1" stop-color="#aeb8c9"/></linearGradient>
+</defs>
+<rect width="64" height="64" rx="13" fill="url(#base)"/>
+<path d="M31 29 Q32 28 34 29 L53 39 Q56 41 53 43 L34 54 Q32 55 30 54 L11 43 Q8 41 11 39Z" fill="url(#lower)" stroke="#788395" stroke-width="0.7"/>
+<path d="M31 21 Q32 20 34 21 L53 31 Q56 33 53 35 L34 46 Q32 47 30 46 L11 35 Q8 33 11 31Z" fill="url(#middle)" stroke="#c3cad5" stroke-width="0.7"/>
+<path d="M31 10 Q32 9 34 10 L53 20 Q56 22 53 24 L34 35 Q32 36 30 35 L11 24 Q8 22 11 20Z" fill="url(#upper)" stroke="#f8f9ff" stroke-width="0.7"/>
 </svg>

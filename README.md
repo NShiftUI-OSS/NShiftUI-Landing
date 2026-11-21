@@ -1,6 +1,6 @@
 # NShiftUI-Landing
 
-Documentação pública do NShiftUI numa única página: Rainbow, Android, iOS, o repositório de demonstração e o CLI.
+Documentação pública do NShiftUI. A sidebar abre as árvores de Rainbow, Android, iOS, do POC e do CLI. Cada página fica num hash (`#/rainbow/instalacao`) e continua lá depois de recarregar.
 
 O GitHub Actions publica GitHub Pages a cada push em `main`.
 
