@@ -1,7 +1,7 @@
 import { useState } from "react"
 import type { ReactNode } from "react"
 
-import { groups, neighbors, overview, pageByPath } from "@/docs/nav"
+import { groupContains, groups, neighbors, overview, pageByPath, type DocGroup } from "@/docs/nav"
 import { href, useRoute } from "@/docs/use-route"
 import { cn } from "cn"
 
@@ -14,9 +14,10 @@ export function DocsShell({ children }: { children: ReactNode }) {
   const [menu, setMenu] = useState(false)
   const [manual, setManual] = useState<Record<string, boolean>>({})
 
-  function expanded(id: string) {
+  function expanded(id: string, contains: boolean, top: boolean) {
     if (id in manual) return manual[id]
-    return true
+    if (top) return true
+    return contains
   }
 
   const sidebar = (
@@ -37,42 +38,17 @@ export function DocsShell({ children }: { children: ReactNode }) {
         >
           {overview.title}
         </a>
-        {groups.map((group) => {
-          const open = expanded(group.id)
-          return (
-            <div key={group.id} className="mt-3">
-              <button
-                type="button"
-                aria-expanded={open}
-                className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm font-medium hover:bg-sidebar-accent"
-                onClick={() => setManual((current) => ({ ...current, [group.id]: !open }))}
-              >
-                <span className={cn("text-xs text-muted-foreground transition-transform", open && "rotate-90")}>
-                  ▶
-                </span>
-                {group.title}
-              </button>
-              {open ? (
-                <div className="mt-0.5 ml-3 border-l pl-2">
-                  {group.pages.map((item) => (
-                    <a
-                      key={item.path}
-                      href={href(item.path)}
-                      aria-current={path === item.path ? "page" : undefined}
-                      className={cn(
-                        "block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
-                        path === item.path && "bg-sidebar-accent font-medium text-foreground",
-                      )}
-                      onClick={() => setMenu(false)}
-                    >
-                      {item.title}
-                    </a>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          )
-        })}
+        {groups.map((group) => (
+          <NavGroup
+            key={group.id}
+            group={group}
+            path={path}
+            top
+            expanded={expanded}
+            onToggle={(id, open) => setManual((current) => ({ ...current, [id]: !open }))}
+            onNavigate={() => setMenu(false)}
+          />
+        ))}
       </nav>
       <div className="border-t p-2">
         <ThemeToggle />
@@ -81,7 +57,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
   )
 
   return (
-    <div className="min-h-svh bg-background md:grid md:grid-cols-[16rem_minmax(0,1fr)]">
+    <div className="min-h-svh bg-background md:grid md:grid-cols-[18rem_minmax(0,1fr)]">
       <aside className="bg-sidebar text-sidebar-foreground sticky top-0 hidden h-svh border-r md:block">
         {sidebar}
       </aside>
@@ -123,6 +99,67 @@ export function DocsShell({ children }: { children: ReactNode }) {
           ) : null}
         </nav>
       </div>
+    </div>
+  )
+}
+
+function NavGroup({
+  group,
+  path,
+  top,
+  expanded,
+  onToggle,
+  onNavigate,
+}: {
+  group: DocGroup
+  path: string
+  top: boolean
+  expanded: (id: string, contains: boolean, top: boolean) => boolean
+  onToggle: (id: string, open: boolean) => void
+  onNavigate: () => void
+}) {
+  const contains = groupContains(group, path)
+  const open = expanded(group.id, contains, top)
+  return (
+    <div className={top ? "mt-3" : "mt-2"}>
+      <button
+        type="button"
+        aria-expanded={open}
+        className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm font-medium hover:bg-sidebar-accent"
+        onClick={() => onToggle(group.id, open)}
+      >
+        <span className={cn("text-xs text-muted-foreground transition-transform", open && "rotate-90")}>▶</span>
+        {group.title}
+      </button>
+      {open ? (
+        <div className="mt-0.5 ml-3 border-l pl-2">
+          {group.pages.map((item) => (
+            <a
+              key={item.path}
+              href={href(item.path)}
+              aria-current={path === item.path ? "page" : undefined}
+              className={cn(
+                "block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
+                path === item.path && "bg-sidebar-accent font-medium text-foreground",
+              )}
+              onClick={onNavigate}
+            >
+              {item.title}
+            </a>
+          ))}
+          {group.sections?.map((section) => (
+            <NavGroup
+              key={section.id}
+              group={section}
+              path={path}
+              top={false}
+              expanded={expanded}
+              onToggle={onToggle}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }

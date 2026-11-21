@@ -1,3 +1,9 @@
+import { androidAnnotations } from "@/docs/android-annotations"
+import { androidDomain } from "@/docs/android-domain"
+import { iosDomain } from "@/docs/ios-domain"
+import { iosMacros } from "@/docs/ios-macros"
+import { linksOf } from "@/docs/reference"
+
 export type DocLink = {
   title: string
   path: string
@@ -7,6 +13,7 @@ export type DocGroup = {
   id: string
   title: string
   pages: DocLink[]
+  sections?: DocGroup[]
 }
 
 export const overview: DocLink = {
@@ -40,6 +47,10 @@ export const groups: DocGroup[] = [
       { title: "Runtime", path: "/android/runtime" },
       { title: "Build e KSP", path: "/android/build" },
     ],
+    sections: [
+      { id: "android-anotacoes", title: "Anotações", pages: linksOf(androidAnnotations) },
+      { id: "android-dominio", title: "Domínio", pages: linksOf(androidDomain) },
+    ],
   },
   {
     id: "ios",
@@ -48,7 +59,11 @@ export const groups: DocGroup[] = [
       { title: "Instalação", path: "/ios/instalacao" },
       { title: "Parser", path: "/ios/parser" },
       { title: "Runtime", path: "/ios/runtime" },
-      { title: "Macros e arranque", path: "/ios/macros" },
+      { title: "Arranque", path: "/ios/macros" },
+    ],
+    sections: [
+      { id: "ios-macros", title: "Macros", pages: linksOf(iosMacros) },
+      { id: "ios-dominio", title: "Domínio", pages: linksOf(iosDomain) },
     ],
   },
   {
@@ -70,10 +85,11 @@ export const groups: DocGroup[] = [
   },
 ]
 
-export const flatPages: DocLink[] = [
-  overview,
-  ...groups.flatMap((group) => group.pages),
-]
+function walk(group: DocGroup): DocLink[] {
+  return [...group.pages, ...(group.sections?.flatMap(walk) ?? [])]
+}
+
+export const flatPages: DocLink[] = [overview, ...groups.flatMap(walk)]
 
 export function pageByPath(path: string) {
   return flatPages.find((page) => page.path === path)
@@ -85,4 +101,9 @@ export function neighbors(path: string) {
     previous: index > 0 ? flatPages[index - 1] : undefined,
     next: index >= 0 && index < flatPages.length - 1 ? flatPages[index + 1] : undefined,
   }
+}
+
+export function groupContains(group: DocGroup, path: string): boolean {
+  if (group.pages.some((page) => page.path === path)) return true
+  return group.sections?.some((section) => groupContains(section, path)) ?? false
 }

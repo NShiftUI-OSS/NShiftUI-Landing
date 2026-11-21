@@ -1,5 +1,12 @@
 import type { ReactNode } from "react"
 
+import { androidAnnotations } from "@/docs/android-annotations"
+import { androidDomain } from "@/docs/android-domain"
+import { iosDomain } from "@/docs/ios-domain"
+import { iosMacros } from "@/docs/ios-macros"
+import type { ReferenceEntry } from "@/docs/reference"
+import { ReferencePage } from "@/pages/reference"
+
 import {
   AndroidBuildPage,
   AndroidInstallPage,
@@ -48,4 +55,16 @@ export const pageComponents: Record<string, () => ReactNode> = {
   "/cli/instalacao": CliInstallPage,
   "/cli/comandos": CliCommandsPage,
   "/cli/editor": CliEditorPage,
+  ...Object.fromEntries(
+    [...iosMacros, ...androidAnnotations, ...iosDomain, ...androidDomain].map((entry) => [
+      entry.path,
+      reference(entry),
+    ]),
+  ),
+}
+
+function reference(entry: ReferenceEntry): () => ReactNode {
+  return function ReferenceRoute() {
+    return <ReferencePage entry={entry} />
+  }
 }
