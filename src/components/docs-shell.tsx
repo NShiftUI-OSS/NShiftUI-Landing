@@ -1,16 +1,21 @@
 import { useState } from "react"
 import type { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 import { groupContains, groups, neighbors, overview, pageByPath, type DocGroup } from "@/docs/nav"
 import { href, useRoute } from "@/docs/use-route"
+import { languages, type LanguageCode } from "@/i18n"
+import { navLabel } from "@/i18n/labels"
 import { cn } from "cn"
 
 const mark = `${import.meta.env.BASE_URL}favicon.svg`
 
 export function DocsShell({ children }: { children: ReactNode }) {
+  const { t } = useTranslation()
   const path = useRoute()
   const page = pageByPath(path)
   const { previous, next } = neighbors(path)
+  const label = (title: string) => navLabel(title, t)
   const [menu, setMenu] = useState(false)
   const [manual, setManual] = useState<Record<string, boolean>>({})
 
@@ -22,11 +27,11 @@ export function DocsShell({ children }: { children: ReactNode }) {
 
   const sidebar = (
     <div className="flex h-full flex-col">
-      <a href={href(overview.path)} className="flex h-14 shrink-0 items-center gap-2.5 border-b px-4 font-semibold">
-        <img src={mark} alt="" className="size-8 rounded-md" />
-        NShiftUI
+      <a href={href(overview.path)} className="flex h-14 shrink-0 items-center gap-2.5 border-b px-4">
+        <img src={mark} alt="" width={32} height={32} className="size-8 shrink-0" />
+        <span className="text-[15px] font-semibold leading-none tracking-tight">NShiftUI</span>
       </a>
-      <nav aria-label="Documentação" className="flex-1 overflow-y-auto px-2 py-3">
+      <nav aria-label={t("shell.docs")} className="flex-1 overflow-y-auto px-2 py-3">
         <a
           href={href(overview.path)}
           aria-current={path === overview.path ? "page" : undefined}
@@ -36,7 +41,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
           )}
           onClick={() => setMenu(false)}
         >
-          {overview.title}
+          {label(overview.title)}
         </a>
         {groups.map((group) => (
           <NavGroup
@@ -47,10 +52,12 @@ export function DocsShell({ children }: { children: ReactNode }) {
             expanded={expanded}
             onToggle={(id, open) => setManual((current) => ({ ...current, [id]: !open }))}
             onNavigate={() => setMenu(false)}
+            label={label}
           />
         ))}
       </nav>
-      <div className="border-t p-2">
+      <div className="space-y-1 border-t p-2">
+        <LanguageControl />
         <ThemeToggle />
       </div>
     </div>
@@ -65,7 +72,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 z-30 md:hidden">
           <button
             type="button"
-            aria-label="Fechar menu"
+            aria-label={t("shell.closeMenu")}
             className="absolute inset-0 bg-black/40"
             onClick={() => setMenu(false)}
           />
@@ -79,22 +86,22 @@ export function DocsShell({ children }: { children: ReactNode }) {
             className="rounded-md border px-2 py-1 text-sm md:hidden"
             onClick={() => setMenu(true)}
           >
-            Menu
+            {t("shell.menu")}
           </button>
-          <p className="truncate text-sm text-muted-foreground">{page?.title}</p>
+          <p className="truncate text-sm text-muted-foreground">{page ? label(page.title) : ""}</p>
         </header>
         {children}
         <nav className="mx-auto flex max-w-3xl justify-between gap-4 px-6 pb-12 sm:px-10">
           {previous ? (
             <a href={href(previous.path)} className="text-sm underline-offset-4 hover:underline">
-              {previous.title}
+              {label(previous.title)}
             </a>
           ) : (
             <span />
           )}
           {next ? (
             <a href={href(next.path)} className="text-sm underline-offset-4 hover:underline">
-              {next.title}
+              {label(next.title)}
             </a>
           ) : null}
         </nav>
@@ -110,6 +117,7 @@ function NavGroup({
   expanded,
   onToggle,
   onNavigate,
+  label,
 }: {
   group: DocGroup
   path: string
@@ -117,6 +125,7 @@ function NavGroup({
   expanded: (id: string, contains: boolean, top: boolean) => boolean
   onToggle: (id: string, open: boolean) => void
   onNavigate: () => void
+  label: (title: string) => string
 }) {
   const contains = groupContains(group, path)
   const open = expanded(group.id, contains, top)
@@ -129,7 +138,7 @@ function NavGroup({
         onClick={() => onToggle(group.id, open)}
       >
         <span className={cn("text-xs text-muted-foreground transition-transform", open && "rotate-90")}>▶</span>
-        {group.title}
+        {label(group.title)}
       </button>
       {open ? (
         <div className="mt-0.5 ml-3 border-l pl-2">
@@ -144,7 +153,7 @@ function NavGroup({
               )}
               onClick={onNavigate}
             >
-              {item.title}
+              {label(item.title)}
             </a>
           ))}
           {group.sections?.map((section) => (
@@ -156,6 +165,7 @@ function NavGroup({
               expanded={expanded}
               onToggle={onToggle}
               onNavigate={onNavigate}
+              label={label}
             />
           ))}
         </div>
@@ -164,7 +174,34 @@ function NavGroup({
   )
 }
 
+function LanguageControl() {
+  const { t, i18n } = useTranslation()
+  const active = (i18n.resolvedLanguage ?? i18n.language).split("-")[0]
+
+  return (
+    <div className="px-1 py-1" role="group" aria-label={t("shell.language")}>
+      <div className="flex flex-wrap gap-1">
+        {languages.map((language) => (
+          <button
+            key={language.code}
+            type="button"
+            aria-pressed={active === language.code}
+            className={cn(
+              "rounded-md px-2 py-1 text-xs",
+              active === language.code ? "bg-sidebar-accent font-medium" : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground",
+            )}
+            onClick={() => void i18n.changeLanguage(language.code satisfies LanguageCode)}
+          >
+            {language.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function ThemeToggle() {
+  const { t } = useTranslation()
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"))
 
   function toggle() {
@@ -180,7 +217,7 @@ function ThemeToggle() {
       onClick={toggle}
       className="hover:bg-sidebar-accent w-full rounded-md px-2 py-1.5 text-left text-sm"
     >
-      {dark ? "Tema claro" : "Tema escuro"}
+      {dark ? t("shell.themeLight") : t("shell.themeDark")}
     </button>
   )
 }

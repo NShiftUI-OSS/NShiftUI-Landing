@@ -1,114 +1,143 @@
+import { useTranslation } from "react-i18next"
+
 import { href } from "@/docs/use-route"
 import { repos } from "@/lib/links"
 
 const mark = `${import.meta.env.BASE_URL}favicon.svg`
+const icon = "4.5rem"
+const lockupGap = "1rem"
 
-const steps = [
-  {
-    href: href("/rainbow/instalacao"),
-    index: "01",
-    title: "Rainbow",
-    text: "Escreva o .rbw, expanda os furos e formate o concreto.",
-  },
-  {
-    href: href("/android/instalacao"),
-    index: "02",
-    title: "Android",
-    text: "Parser, runtime, anotações KSP e cada tipo do domínio.",
-  },
-  {
-    href: href("/ios/instalacao"),
-    index: "03",
-    title: "iOS",
-    text: "Pacote Swift, sete macros e cada tipo do domínio.",
-  },
-  {
-    href: href("/poc/executar"),
-    index: "04",
-    title: "POC",
-    text: "Editor, API e os dois apps, a partir da tag 0.1.0.",
-  },
-  {
-    href: href("/cli/instalacao"),
-    index: "05",
-    title: "CLI",
-    text: "O binário rainbow, do código de RainbowParser-Rust.",
-  },
-]
+const source = [
+  { text: "Screen", kind: "name" },
+  { text: "(name: ", kind: "punct" },
+  { text: '"Home"', kind: "string" },
+  { text: ") {\n  ", kind: "punct" },
+  { text: "Button", kind: "name" },
+  { text: "(\n    title: ", kind: "punct" },
+  { text: '"Entrar"', kind: "string" },
+  { text: ",\n    variant: ", kind: "punct" },
+  { text: ".primary", kind: "enum" },
+  { text: "\n  )\n}", kind: "punct" },
+] as const
 
 export function OverviewPage() {
-  return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-8 sm:px-10 sm:py-12">
-      <div className="flex items-center gap-4">
-        <img src={mark} alt="" className="size-16 rounded-xl" />
-        <div>
-          <p className="text-sm text-muted-foreground">NShiftUI</p>
-          <h1 className="text-4xl font-semibold tracking-tight">Telas nativas, descritas em texto.</h1>
-        </div>
-      </div>
-      <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground">
-        O editor guarda o template. O backend expande. O iOS e o Android desenham o resultado. A sidebar abre cada peça, começando pela instalação.
-      </p>
+  const { t } = useTranslation()
 
-      <figure className="mt-8 overflow-hidden rounded-xl border bg-card">
-        <svg viewBox="0 0 760 168" role="img" className="h-auto w-full text-foreground">
-          <title>Do template Rainbow até as telas nativas</title>
-          <rect x="24" y="36" width="180" height="96" rx="14" fill="currentColor" opacity="0.06" />
-          <text x="114" y="78" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="Geist Variable, sans-serif">
-            template .rbw
-          </text>
-          <text x="114" y="102" textAnchor="middle" fill="currentColor" opacity="0.62" fontSize="13" fontFamily="Geist Variable, sans-serif">
-            {"#{Nome}"}
-          </text>
-          <path d="M214 84 H268" stroke="currentColor" strokeWidth="1.5" opacity="0.45" />
-          <path d="M260 78 L270 84 L260 90" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.45" />
-          <rect x="278" y="36" width="180" height="96" rx="14" fill="currentColor" opacity="0.06" />
-          <text x="368" y="78" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="Geist Variable, sans-serif">
-            expand
-          </text>
-          <text x="368" y="102" textAnchor="middle" fill="currentColor" opacity="0.62" fontSize="13" fontFamily="Geist Variable, sans-serif">
-            Rainbow concreto
-          </text>
-          <path d="M468 84 H522" stroke="currentColor" strokeWidth="1.5" opacity="0.45" />
-          <path d="M514 78 L524 84 L514 90" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.45" />
-          <rect x="532" y="24" width="200" height="52" rx="14" fill="currentColor" opacity="0.06" />
-          <rect x="532" y="92" width="200" height="52" rx="14" fill="currentColor" opacity="0.06" />
-          <text x="632" y="56" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="Geist Variable, sans-serif">
-            iOS
-          </text>
-          <text x="632" y="124" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="Geist Variable, sans-serif">
-            Android
-          </text>
-        </svg>
-        <figcaption className="border-t px-4 py-3 text-sm text-muted-foreground">
-          O parser móvel não vê o furo. Ele recebe o concreto e o runtime monta a árvore de plugins.
-        </figcaption>
+  return (
+    <div className="mx-auto w-full max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
+      <header>
+        <p className="text-[13px] font-medium leading-none tracking-tight text-muted-foreground">NShiftUI</p>
+        <div className="mt-4 flex items-center" style={{ gap: lockupGap }}>
+          <img src={mark} alt="" width={72} height={72} className="shrink-0" style={{ width: icon, height: icon }} />
+          <h1 className="max-w-[14ch] text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl">
+            {t("overview.headline")}
+          </h1>
+        </div>
+        <p
+          className="mt-6 max-w-xl text-[17px] leading-7 text-muted-foreground"
+          style={{ paddingLeft: `calc(${icon} + ${lockupGap})` }}
+        >
+          {t("overview.lede")}
+        </p>
+      </header>
+
+      <figure className="mt-16">
+        <figcaption className="sr-only">{t("overview.figureTitle")}</figcaption>
+        <div className="grid items-start gap-10 border-y py-8 lg:grid-cols-[minmax(0,1.15fr)_5.5rem_minmax(14rem,0.72fr)] lg:gap-0">
+          <div className="lg:pr-10">
+            <p className="font-mono text-[11px] leading-none tracking-[0.16em] text-muted-foreground uppercase">
+              template .rbw
+            </p>
+            <pre className="mt-6 overflow-x-auto font-mono text-[15px] leading-8">
+              <code>
+                {source.map((token, index) => (
+                  <span key={index} className={tokenClass(token.kind)}>
+                    {token.text}
+                  </span>
+                ))}
+              </code>
+            </pre>
+          </div>
+          <div className="flex items-center gap-3 lg:flex-col lg:pt-9">
+            <span className="font-mono text-[11px] leading-none tracking-[0.16em] text-muted-foreground uppercase">
+              expand
+            </span>
+            <span className="h-px w-10 bg-foreground/35 lg:h-16 lg:w-px" />
+          </div>
+          <div className="lg:pl-8">
+            <p className="font-mono text-[11px] leading-none tracking-[0.16em] text-muted-foreground uppercase">
+              {t("overview.nativeLabel")}
+            </p>
+            <div className="mt-6 space-y-6">
+              <div>
+                <p className="text-3xl font-semibold leading-none tracking-tight">iOS</p>
+                <p className="mt-2 text-sm text-muted-foreground">{t("overview.concrete")}</p>
+              </div>
+              <div>
+                <p className="text-3xl font-semibold leading-none tracking-tight">Android</p>
+                <p className="mt-2 text-sm text-muted-foreground">{t("overview.concrete")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">{t("overview.caption")}</p>
       </figure>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {steps.map((step) => (
-          <a key={step.href} href={step.href} className="rounded-xl border bg-card p-4 hover:bg-accent">
-            <p className="font-mono text-xs text-muted-foreground">{step.index}</p>
-            <p className="mt-3 text-lg font-semibold">{step.title}</p>
-            <p className="mt-1 text-sm leading-6 text-muted-foreground">{step.text}</p>
+      <section className="mt-16" aria-label={t("overview.ways")}>
+        <h2 className="text-[13px] font-medium leading-none text-muted-foreground">{t("overview.ways")}</h2>
+        <a href={href("/rainbow/instalacao")} className="mt-5 flex items-end justify-between gap-8 border-t py-6">
+          <span className="text-4xl font-semibold tracking-tight">Rainbow</span>
+          <span className="max-w-xs text-right text-sm leading-6 text-muted-foreground">{t("overview.rainbow")}</span>
+        </a>
+        <div className="grid border-t sm:grid-cols-2">
+          <a href={href("/android/instalacao")} className="border-b py-6 sm:border-r sm:border-b-0 sm:pr-8">
+            <span className="block text-3xl font-semibold tracking-tight">Android</span>
+            <span className="mt-2 block max-w-xs text-sm leading-6 text-muted-foreground">{t("overview.android")}</span>
           </a>
-        ))}
-      </div>
+          <a href={href("/ios/instalacao")} className="py-6 sm:pl-8">
+            <span className="block text-3xl font-semibold tracking-tight">iOS</span>
+            <span className="mt-2 block max-w-xs text-sm leading-6 text-muted-foreground">{t("overview.ios")}</span>
+          </a>
+        </div>
+        <div className="grid border-t border-b sm:grid-cols-2">
+          <a href={href("/poc/executar")} className="border-b py-5 sm:border-r sm:border-b-0 sm:pr-8">
+            <span className="block text-xl font-semibold tracking-tight">POC</span>
+            <span className="mt-1 block text-sm leading-6 text-muted-foreground">{t("overview.poc")}</span>
+          </a>
+          <a href={href("/cli/instalacao")} className="py-5 sm:pl-8">
+            <span className="block text-xl font-semibold tracking-tight">CLI</span>
+            <span className="mt-1 block text-sm leading-6 text-muted-foreground">{t("overview.cli")}</span>
+          </a>
+        </div>
+      </section>
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-3">
-        <a href={repos.rust} className="rounded-xl border px-4 py-3 text-sm hover:bg-accent" rel="noreferrer" target="_blank">
-          RainbowParser-Rust
-          <span className="mt-1 block text-muted-foreground">0.1.0-beta.1</span>
-        </a>
-        <a href={repos.ios} className="rounded-xl border px-4 py-3 text-sm hover:bg-accent" rel="noreferrer" target="_blank">
-          NShiftUI-iOS
-          <span className="mt-1 block text-muted-foreground">release v0.2.0-beta.3</span>
-        </a>
-        <a href={repos.android} className="rounded-xl border px-4 py-3 text-sm hover:bg-accent" rel="noreferrer" target="_blank">
-          NShiftUI-Android
-          <span className="mt-1 block text-muted-foreground">release v0.2.0-beta.3</span>
-        </a>
-      </div>
+      <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <li>
+          <a className="underline-offset-4 hover:underline" href={repos.rust} rel="noreferrer" target="_blank">
+            RainbowParser-Rust
+            <span className="text-muted-foreground"> 0.1.0-beta.1</span>
+          </a>
+        </li>
+        <li>
+          <a className="underline-offset-4 hover:underline" href={repos.ios} rel="noreferrer" target="_blank">
+            NShiftUI-iOS
+            <span className="text-muted-foreground"> v0.2.0-beta.3</span>
+          </a>
+        </li>
+        <li>
+          <a className="underline-offset-4 hover:underline" href={repos.android} rel="noreferrer" target="_blank">
+            NShiftUI-Android
+            <span className="text-muted-foreground"> v0.2.0-beta.3</span>
+          </a>
+        </li>
+      </ul>
     </div>
   )
+}
+
+function tokenClass(kind: (typeof source)[number]["kind"]) {
+  if (kind === "name") return "text-[#D0A8FF]"
+  if (kind === "string") return "text-[#FF9A3C]"
+  if (kind === "enum") return "text-[#67E8F9]"
+  return "text-[#9CA3AF]"
 }
