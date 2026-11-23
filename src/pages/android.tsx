@@ -5,7 +5,7 @@ export function AndroidInstallPage() {
   return (
     <Article kicker="Android" title="Instalação">
       <P>
-        Há dois artefatos. <Ext href={repos.parserAndroid}>RainbowParser-Android</Ext> <K>0.1.0-beta.1</K> é a sintaxe. <Ext href={repos.android}>NShiftUI-Android</Ext> <K>0.2.0-beta.3</K> é o runtime: <K>NShiftRainbowCompiler</K>, DI, engine e <K>NShiftView</K>. Pacote <K>com.nshiftui</K>, <K>minSdk</K> 23, <K>namespace</K> <K>com.nshiftui</K>.
+        Há dois artefatos. <Ext href={repos.parserAndroid}>RainbowParser-Android</Ext> <K>1.0.0</K> é a sintaxe. <Ext href={repos.android}>NShiftUI-Android</Ext> <K>1.0.0</K> é o runtime: <K>NShiftRainbowCompiler</K>, DI, engine e <K>NShiftView</K>. Pacote <K>com.nshiftui</K>, <K>minSdk</K> 23, <K>namespace</K> <K>com.nshiftui</K>.
       </P>
       <div className="flex flex-wrap gap-3">
         <DownloadLink href={repos.androidAar}>AAR do runtime</DownloadLink>
@@ -13,10 +13,10 @@ export function AndroidInstallPage() {
         <DownloadLink href={repos.parserAndroidAar}>AAR do parser</DownloadLink>
       </div>
       <P>
-        A release <Ext href={repos.androidRelease}>v0.2.0-beta.3</Ext> publica <K>NShiftUI-Android-release.aar</K> e <K>nshiftui-ksp.jar</K>. Não publica metadados Maven. O parser publicado é <K>RainbowParser-Android-release.aar</K>.
+        A release <Ext href={repos.androidRelease}>v1.0.0</Ext> publica <K>NShiftUI-Android-release.aar</K> e <K>nshiftui-ksp.jar</K>. Não publica metadados Maven. O parser publicado é <K>RainbowParser-Android-release.aar</K>.
       </P>
       <P>
-        O módulo do runtime declara <K>api("com.nshiftui.rainbowparser:rainbowparser:0.1.0-beta.1:release@aar")</K>. O Ivy do repositório mapeia essa coordenada para o arquivo da tag, porque a release só hospeda o AAR.
+        O módulo do runtime declara <K>api("com.nshiftui.rainbowparser:rainbowparser:1.0.0:release@aar")</K>. O Ivy do repositório mapeia essa coordenada para o arquivo da tag, porque a release só hospeda o AAR.
       </P>
       <CodeBlock
         title="settings.gradle.kts do NShiftUI-Android"
@@ -45,7 +45,7 @@ export function AndroidParserPage() {
   return (
     <Article kicker="Android" title="Parser">
       <P>
-        <K>com.nshiftui.rainbowparser</K>, versão <K>RainbowParserVersion.current</K> = <K>0.1.0-beta.1</K>. Zero dependências de runtime. Não valida semântica de <K>Screen</K>, <K>Button</K> ou <K>OnTap</K>. Isso fica no NShiftUI.
+        <K>com.nshiftui.rainbowparser</K>, versão <K>RainbowParserVersion.current</K> = <K>1.0.0</K>. Zero dependências de runtime. Não valida semântica de <K>Screen</K>, <K>Button</K> ou <K>OnTap</K>. Isso fica no NShiftUI.
       </P>
       <P>{"O parser lê Rainbow já expandido. Furos #{Nome} e expand pertencem ao RainbowParser-Rust."}</P>
       <CodeBlock
@@ -81,7 +81,7 @@ export function AndroidRuntimePage() {
   return (
     <Article kicker="Android" title="Runtime">
       <P>
-        Na tag <K>v0.2.0-beta.3</K>, <K>NShiftUIVersion.current</K> é <K>0.2.0-beta.3</K>. O pin do parser continua <K>com.nshiftui.rainbowparser:rainbowparser:0.1.0-beta.1</K>. O runtime faz a semântica em cima do <K>RainbowDocument</K>.
+        Na tag <K>v1.0.0</K>, <K>NShiftUIVersion.current</K> é <K>1.0.0</K>. O pin do parser continua <K>com.nshiftui.rainbowparser:rainbowparser:1.0.0</K>. O runtime faz a semântica em cima do <K>RainbowDocument</K>.
       </P>
       <Ul>
         <li><K>NShiftRainbowCompiler</K> compila a fonte Rainbow para o modelo de plugins.</li>
@@ -102,9 +102,9 @@ export function AndroidBuildPage() {
   return (
     <Article kicker="Android" title="Build e KSP">
       <P>
-        KSP é opcional, no módulo <K>:nshiftui-ksp</K>. O jar da release <K>v0.2.0-beta.3</K> é <Ext href={repos.androidKsp}>nshiftui-ksp.jar</Ext>. O Gradle desse módulo usa o grupo <K>com.nshiftui</K> e a versão <K>0.2.0-beta.3</K>. Sem KSP, plugins e events herdam <K>NShiftPlugin</K> e <K>NShiftEvent</K>.
+        KSP é opcional, no módulo <K>:nshiftui-ksp</K>. O jar da release <K>v1.0.0</K> é <Ext href={repos.androidKsp}>nshiftui-ksp.jar</Ext>. O Gradle desse módulo usa o grupo <K>com.nshiftui</K> e a versão <K>1.0.0</K>. Sem KSP, plugins e events herdam <K>NShiftPlugin</K> e <K>NShiftEvent</K>.
       </P>
-      <H2>Toolchain da tag v0.2.0-beta.3</H2>
+      <H2>Toolchain da tag v1.0.0</H2>
       <Ul>
         <li>Gradle 9.7.1</li>
         <li>Android Gradle Plugin 9.4.1</li>

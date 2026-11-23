@@ -5,7 +5,7 @@ export function IosInstallPage() {
   return (
     <Article kicker="iOS" title="Instalação">
       <P>
-        <Ext href={repos.ios}>NShiftUI-iOS</Ext> é um pacote Swift. A release <Ext href={repos.iosRelease}>v0.2.0-beta.3</Ext> não anexa binário. <K>NShiftUIVersion.current</K> nessa tag é <K>0.2.0-beta.3</K>. O consumidor resolve a tag git.
+        <Ext href={repos.ios}>NShiftUI-iOS</Ext> é um pacote Swift. A release <Ext href={repos.iosRelease}>v1.0.0</Ext> não anexa binário. <K>NShiftUIVersion.current</K> nessa tag é <K>1.0.0</K>. O consumidor resolve a tag git.
       </P>
       <P>
         Plataformas: iOS 15 e macOS 14. Tools <K>6.3</K>, <K>swiftLanguageModes: [.v6]</K>. O único product é a library <K>NShiftUI</K>. <K>import NShiftUI</K> reexporta Domain, DI e as macros. <K>NShiftUIDomain</K>, <K>NShiftUIDI</K> e <K>NShiftUIMacros</K> são targets, não products.
@@ -15,7 +15,7 @@ export function IosInstallPage() {
         code={`dependencies: [
     .package(
         url: "https://github.com/NShiftUI-OSS/NShiftUI-iOS.git",
-        exact: "0.2.0-beta.3"
+        exact: "1.0.0"
     ),
 ]
 
@@ -23,11 +23,11 @@ export function IosInstallPage() {
 .product(name: "NShiftUI", package: "NShiftUI")`}
       />
       <P>
-        O requisito <K>exact: "0.2.0-beta.3"</K> resolve a tag <K>v0.2.0-beta.3</K>. Dentro do pacote, a dependência do parser é <Ext href={repos.parserIos}>RainbowParser-iOS</Ext> com <K>exact: "0.2.0-beta.1"</K> e o product <K>RainbowParser</K>, mais <K>swift-syntax</K> <K>from: "603.0.0-latest"</K>.
+        O requisito <K>exact: "1.0.0"</K> resolve a tag <K>v1.0.0</K>. Dentro do pacote, a dependência do parser é <Ext href={repos.parserIos}>RainbowParser-iOS</Ext> com <K>exact: "1.0.0"</K> e o product <K>RainbowParser</K>, mais <K>swift-syntax</K> <K>from: "603.0.0-latest"</K>.
       </P>
       <P>Do package root, o guia do repositório usa <K>swift build</K> e <K>swift test</K>.</P>
       <CodeBlock
-        code={`git clone --branch v0.2.0-beta.3 --depth 1 https://github.com/NShiftUI-OSS/NShiftUI-iOS.git
+        code={`git clone --branch v1.0.0 --depth 1 https://github.com/NShiftUI-OSS/NShiftUI-iOS.git
 cd NShiftUI-iOS
 swift build`}
       />
@@ -42,14 +42,14 @@ export function IosParserPage() {
         <Ext href={repos.parserIos}>RainbowParser-iOS</Ext> lê Rainbow concreto e devolve uma AST genérica. A semântica de <K>Screen</K>, <K>Button</K>, <K>OnTap</K> ou <K>SendHTTPRequest</K> pertence ao NShiftUI. {"#{Nome}"} e <K>expand</K> não existem neste pacote.
       </P>
       <P>
-        A tag publicada é <Ext href={repos.parserIosRelease}>v0.2.0-beta.1</Ext>. <K>RainbowParserVersion.current</K> nessa tag é <K>0.2.0-beta.1</K>. O README da mesma tag ainda imprime <K>0.1.0-beta.1</K> no texto da versão.
+        A tag publicada é <Ext href={repos.parserIosRelease}>v1.0.0</Ext>. <K>RainbowParserVersion.current</K> nessa tag é <K>1.0.0</K>.
       </P>
       <P>Requisitos do README: Swift 6.3 ou mais novo, toolchain do Xcode, Swift Package Manager. <K>swift-tools-version: 6.3</K> e <K>swiftLanguageModes: [.v6]</K>.</P>
       <CodeBlock
         title="Package.swift de quem consome só o parser"
         code={`.package(
     url: "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
-    exact: "0.2.0-beta.1"
+    exact: "1.0.0"
 )
 .product(name: "RainbowParser", package: "RainbowParser")`}
       />
@@ -91,7 +91,7 @@ export function IosRuntimePage() {
         Mutações públicas do engine: <K>replaceMetadata</K>, <K>replacePlugin</K>, <K>replaceChildren</K>, <K>replaceSlots</K>, <K>replaceSlot</K>, <K>replaceEvents</K>, <K>replaceEvent</K>.
       </P>
       <P>
-        A superfície de v0.2.0-beta.3 deixa de fora <K>@NShiftMainPluginRegister</K>, packs, <K>pluginRegister()</K>, <K>NShiftRendering</K>, <K>NShiftAnyRendering</K>, <K>NShiftEmptyRenderer</K> e <K>NShiftSlotContent</K>.
+        A superfície de v1.0.0 deixa de fora <K>@NShiftMainPluginRegister</K>, packs, <K>pluginRegister()</K>, <K>NShiftRendering</K>, <K>NShiftAnyRendering</K>, <K>NShiftEmptyRenderer</K> e <K>NShiftSlotContent</K>.
       </P>
     </Article>
   )

@@ -608,7 +608,7 @@ export const androidDomain: ReferenceEntry[] = [
     "NShiftUIVersion",
     "current é a versão do runtime. rainbowParser aponta para a versão do parser pinada.",
     ["const val current", "rainbowParser"],
-    "Não é a NShiftVersion de um plugin. O pin do parser na tag publicada continua 0.1.0-beta.1.",
+    "Não é a NShiftVersion de um plugin. O pin do parser na tag publicada continua 1.0.0.",
   ),
   domain(
     "runtime-precondition",

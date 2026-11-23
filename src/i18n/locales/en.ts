@@ -41,7 +41,7 @@ export const en = {
     rainbow: "The DSL. Grammar, expand, format, and WASM.",
     android: "Kotlin runtime. Annotations, KSP, and the domain.",
     ios: "Swift runtime. Seven macros and the domain.",
-    poc: "Editor, API, and the apps. Tag 0.1.0.",
+    poc: "Editor, API, and the apps. Tag v1.0.0.",
     cli: "The rainbow binary, in the rainbow-cli crate.",
     open: "Open",
   },

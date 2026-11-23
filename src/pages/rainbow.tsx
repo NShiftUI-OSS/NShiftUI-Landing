@@ -31,15 +31,15 @@ export function RainbowInstallPage() {
   return (
     <Article kicker="Rainbow" title="Instalação">
       <P>
-        <Ext href={repos.rust}>RainbowParser-Rust</Ext> é a autoridade da gramática e a API global de backend. Versão publicada: <K>0.1.0-beta.1</K> (<K>rainbow_parser::RAINBOW_PARSER_VERSION</K>). Requisitos do README: Rust 1.86 ou mais novo, e Cargo. Node 20 ou mais novo só entra para compilar a extensão de editor a partir do fonte.
+        <Ext href={repos.rust}>RainbowParser-Rust</Ext> é a autoridade da gramática e a API global de backend. Versão publicada: <K>1.0.0</K> (<K>rainbow_parser::RAINBOW_PARSER_VERSION</K>). Requisitos do README: Rust 1.86 ou mais novo, e Cargo. Node 20 ou mais novo só entra para compilar a extensão de editor a partir do fonte.
       </P>
       <CodeBlock
         title="clone da tag publicada"
-        code={`git clone --branch v0.1.0-beta.1 --depth 1 https://github.com/NShiftUI-OSS/RainbowParser-Rust.git
+        code={`git clone --branch v1.0.0 --depth 1 https://github.com/NShiftUI-OSS/RainbowParser-Rust.git
 cd RainbowParser-Rust
 cargo run -p rainbow-cli -- --version`}
       />
-      <P>O arquivo da tag também está em <Ext href={repos.rustSource}>v0.1.0-beta.1.tar.gz</Ext>. A <Ext href={repos.rustRelease}>release</Ext> anexa os dois pacotes WASM. Não anexa o binário <K>rainbow</K>.</P>
+      <P>O arquivo da tag também está em <Ext href={repos.rustSource}>v1.0.0.tar.gz</Ext>. A <Ext href={repos.rustRelease}>release</Ext> anexa os dois pacotes WASM. Não anexa o binário <K>rainbow</K>.</P>
       <H2>Workspace</H2>
       <DocTable
         headers={["Crate", "Uso"]}
@@ -303,7 +303,7 @@ export function RainbowParityPage() {
   return (
     <Article kicker="Rainbow" title="Paridade">
       <P>
-        A gramática concreta vai para <Ext href={repos.parserIos}>RainbowParser-iOS</Ext> <K>0.2.0-beta.1</K> e <Ext href={repos.parserAndroid}>RainbowParser-Android</Ext> <K>0.1.0-beta.1</K>. Estes ficam só no crate Rust: placeholders, <K>expand --map</K>, <K>validate --concrete</K> para furos restantes, <K>validate-registry</K>, envelopes JSON do CLI, LSP e WASM.
+        A gramática concreta vai para <Ext href={repos.parserIos}>RainbowParser-iOS</Ext> <K>1.0.0</K> e <Ext href={repos.parserAndroid}>RainbowParser-Android</Ext> <K>1.0.0</K>. Estes ficam só no crate Rust: placeholders, <K>expand --map</K>, <K>validate --concrete</K> para furos restantes, <K>validate-registry</K>, envelopes JSON do CLI, LSP e WASM.
       </P>
       <P>
         O concreto compartilhado: nós, parâmetros e blocos; string, int, double, bool, null, enum <K>.nome</K>, array, objeto e <K>@LANG</K> com corpo real; <K>use Nome@1.2.3</K>; comentários <K>//</K>; o token <K>@</K>; o lexema de versão; e o printer canônico. O <K>Int</K> de 64 bits do iOS vira <K>Long</K> no Kotlin.
@@ -337,7 +337,7 @@ export function RainbowWasmPage() {
           ["validateRegistry(source)", "rainbow validate-registry --json"],
         ]}
       />
-      <P>A release <K>v0.1.0-beta.1</K> publica os dois pacotes no mesmo job. Se um build falha, a release não sai.</P>
+      <P>A release <K>v1.0.0</K> publica os dois pacotes no mesmo job. Se um build falha, a release não sai.</P>
       <Ul>
         <li>
           <Ext href={repos.wasmNode}>rainbow-parser-wasm-node.tgz</Ext>
@@ -363,7 +363,7 @@ if (!parsed.ok) {
 npm install ${repos.wasmWeb}`}
       />
       <P>
-        De um ES module, crie um <K>require</K> com <K>createRequire(import.meta.url)</K>. O job de release monta os pacotes com Rust 1.88 ou mais novo, o target <K>wasm32-unknown-unknown</K>, <K>wasm-pack</K> 0.15 e Node 20. Para reproduzir: <K>VERSION=0.1.0-beta.1 bash scripts/ci/release/assemble.sh</K>.
+        De um ES module, crie um <K>require</K> com <K>createRequire(import.meta.url)</K>. O job de release monta os pacotes com Rust 1.88 ou mais novo, o target <K>wasm32-unknown-unknown</K>, <K>wasm-pack</K> 0.15 e Node 20. Para reproduzir: <K>VERSION=1.0.0 bash scripts/ci/release/assemble.sh</K>.
       </P>
     </Article>
   )

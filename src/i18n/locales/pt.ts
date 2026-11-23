@@ -41,7 +41,7 @@ export const pt = {
     rainbow: "A DSL. Gramática, expand, formato e WASM.",
     android: "Runtime Kotlin. Anotações, KSP e o domínio.",
     ios: "Runtime Swift. Sete macros e o domínio.",
-    poc: "Editor, API e os apps. Tag 0.1.0.",
+    poc: "Editor, API e os apps. Tag v1.0.0.",
     cli: "O binário rainbow, no crate rainbow-cli.",
     open: "Abrir",
   },

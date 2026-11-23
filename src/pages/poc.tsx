@@ -6,14 +6,14 @@ export function PocRepoPage() {
   return (
     <Article kicker="POC" title="O repositório">
       <P>
-        O POC é <Ext href={repos.demo}>NShiftUI-Demo</Ext>. Não há GitHub Release. A tag publicada é <K>0.1.0</K>. O comando <K>rainbow demo</K> baixa essa tag para <K>~/Library/Application Support/rainbow/demo</K> no macOS, e para <K>~/.rainbow/demo</K> nos outros sistemas. <K>RAINBOW_DEMO_DIR</K> troca o destino. <K>rainbow demo --force</K> baixa de novo. A demonstração não faz parte de <K>brew install rainbow</K>.
+        O POC é <Ext href={repos.demo}>NShiftUI-Demo</Ext>. A tag publicada é <K>v1.0.0</K>. O comando <K>rainbow demo</K>, no CLI instalado pelo tap atual, baixa essa tag para <K>~/Library/Application Support/rainbow/demo</K> no macOS, e para <K>~/.rainbow/demo</K> nos outros sistemas. <K>RAINBOW_DEMO_DIR</K> troca o destino. <K>rainbow demo --force</K> baixa de novo. A demonstração não faz parte de <K>brew install rainbow</K>.
       </P>
       <div className="flex flex-wrap gap-3">
-        <DownloadLink href={repos.demoArchive}>Arquivo da tag 0.1.0</DownloadLink>
+        <DownloadLink href={repos.demoArchive}>Arquivo da tag v1.0.0</DownloadLink>
         <DownloadLink href={repos.demo}>Repositório</DownloadLink>
       </div>
       <P>
-        As bibliotecas nativas não estão no demo. O app de iOS depende da tag publicada de NShiftUI-iOS. O app de Android baixa o AAR publicado de NShiftUI-Android. O catálogo começa vazio: as telas nascem no editor e são publicadas na API.
+        As bibliotecas nativas não estão no demo. O app de iOS depende da tag publicada de NShiftUI-iOS. O app de Android baixa o AAR publicado de NShiftUI-Android. No primeiro startup com banco vazio, a API carrega as oito telas do seed. As alterações publicadas no CMS persistem no Postgres.
       </P>
       <div className="grid gap-3 sm:grid-cols-2">
         {[
@@ -43,7 +43,7 @@ export function PocRunPage() {
       </P>
       <CodeBlock
         title="obter a tag"
-        code={`git clone --branch 0.1.0 --depth 1 https://github.com/NShiftUI-OSS/NShiftUI-Demo.git
+        code={`git clone --branch v1.0.0 --depth 1 https://github.com/NShiftUI-OSS/NShiftUI-Demo.git
 cd NShiftUI-Demo`}
       />
       <CodeBlock
@@ -74,7 +74,7 @@ open ios/NShiftUI-POC-iOS.xcodeproj
 # File → Open → pasta android`}
       />
       <P>
-        Com o CLI já instalado, <K>rainbow demo</K> baixa o mesmo arquivo <Ext href={repos.demoArchive}>0.1.0.tar.gz</Ext> e copia as pastas <K>web</K>, <K>back</K>, <K>ios</K> e <K>android</K>.
+        Com o CLI instalado pelo tap atual, <K>rainbow demo</K> baixa o mesmo arquivo <Ext href={repos.demoArchive}>v1.0.0.tar.gz</Ext> e copia as pastas <K>web</K>, <K>back</K>, <K>ios</K> e <K>android</K>.
       </P>
     </Article>
   )

@@ -115,19 +115,19 @@ export function OverviewPage() {
         <li>
           <a className="underline-offset-4 hover:underline" href={repos.rust} rel="noreferrer" target="_blank">
             RainbowParser-Rust
-            <span className="text-muted-foreground"> 0.1.0-beta.1</span>
+            <span className="text-muted-foreground"> 1.0.0</span>
           </a>
         </li>
         <li>
           <a className="underline-offset-4 hover:underline" href={repos.ios} rel="noreferrer" target="_blank">
             NShiftUI-iOS
-            <span className="text-muted-foreground"> v0.2.0-beta.3</span>
+            <span className="text-muted-foreground"> v1.0.0</span>
           </a>
         </li>
         <li>
           <a className="underline-offset-4 hover:underline" href={repos.android} rel="noreferrer" target="_blank">
             NShiftUI-Android
-            <span className="text-muted-foreground"> v0.2.0-beta.3</span>
+            <span className="text-muted-foreground"> v1.0.0</span>
           </a>
         </li>
       </ul>

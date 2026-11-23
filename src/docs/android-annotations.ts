@@ -128,7 +128,7 @@ fun NShiftDependencyContainer.installNShiftGenerated() {
     notes: [
       "O processador roda uma vez. generatedInstaller impede uma segunda emissão.",
       "Sem símbolos anotados, não cria arquivo.",
-      "O jar publicado na release v0.2.0-beta.3 é nshiftui-ksp.jar. Sem esse processador no classpath do KSP, as anotações continuam válidas em runtime, mas installNShiftGenerated não existe.",
+      "O jar publicado na release v1.0.0 é nshiftui-ksp.jar. Sem esse processador no classpath do KSP, as anotações continuam válidas em runtime, mas installNShiftGenerated não existe.",
     ],
     connects: "O host chama installNShiftGenerated() no container antes de NShiftConfig.startup e de NShiftView. Esse é o equivalente Android de @NShiftPluginAssemble e @NShiftEventAssemble.",
   },

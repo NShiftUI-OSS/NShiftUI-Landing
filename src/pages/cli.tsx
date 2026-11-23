@@ -5,21 +5,24 @@ export function CliInstallPage() {
   return (
     <Article kicker="CLI" title="Instalação">
       <P>
-        O binário se chama <K>rainbow</K>. Ele é o crate <K>rainbow-cli</K> em <Ext href={repos.rust}>RainbowParser-Rust</Ext>, versão <K>0.1.0-beta.1</K>. A <Ext href={repos.rustRelease}>release</Ext> anexa só <K>rainbow-parser-wasm-node.tgz</K> e <K>rainbow-parser-wasm-web.tgz</K>. O download do CLI é o código-fonte da tag.
+        O binário se chama <K>rainbow</K>. Ele é o crate <K>rainbow-cli</K> em <Ext href={repos.rust}>RainbowParser-Rust</Ext>, versão <K>1.0.0</K>. A <Ext href={repos.rustRelease}>release</Ext> anexa só <K>rainbow-parser-wasm-node.tgz</K> e <K>rainbow-parser-wasm-web.tgz</K>. O download do CLI é o código-fonte da tag.
       </P>
       <div className="flex flex-wrap gap-3">
-        <DownloadLink href={repos.rustSource}>Código-fonte v0.1.0-beta.1</DownloadLink>
+        <DownloadLink href={repos.rustSource}>Código-fonte v1.0.0</DownloadLink>
         <DownloadLink href={repos.rust}>Repositório</DownloadLink>
       </div>
       <P>Requisitos do README: Rust 1.86 ou mais novo, e Cargo. Os exemplos usam caminhos de <K>fixtures/</K> do próprio repositório.</P>
       <CodeBlock
-        code={`git clone --branch v0.1.0-beta.1 --depth 1 https://github.com/NShiftUI-OSS/RainbowParser-Rust.git
+        code={`git clone --branch v1.0.0 --depth 1 https://github.com/NShiftUI-OSS/RainbowParser-Rust.git
 cd RainbowParser-Rust
 cargo run -p rainbow-cli -- --version`}
       />
       <P>
-        O tap <Ext href={repos.homebrew}>homebrew-rainbowparser</Ext> está no GitHub. A fórmula <K>Formula/rainbow.rb</K> ainda clona <K>https://gitlab.com/tcc-nshiftui/global/rainbowparser-rust.git</K>, branch <K>release/0.1.0-beta.1</K>. Ela instala <K>rainbow</K> e <K>rainbow-lsp</K> com Cargo a partir de <K>crates/rainbow-cli</K> e <K>crates/rainbow-lsp</K>. O caminho público para obter o CLI é o repositório no GitHub.
+        O tap público <Ext href={repos.homebrew}>homebrew-rainbowparser</Ext> instala <K>rainbow</K>, <K>rainbow-lsp</K> e a extensão. Essa distribuição também baixa o Demo <K>v1.0.0</K> pelo comando <K>rainbow demo</K>.
       </P>
+      <CodeBlock code={`brew tap NShiftUI-OSS/rainbowparser
+brew trust NShiftUI-OSS/rainbowparser
+brew install rainbow`} />
     </Article>
   )
 }
@@ -38,8 +41,8 @@ export function CliCommandsPage() {
           ["expand --map arquivo.json [--json] [--validate] [arquivo|-]", "substitui #{Nome}"],
           ["install [cursor|vscode|both]", "extensão do editor"],
           ["doctor", "confere CLI, LSP e editores"],
-          ["demo [--force]", "baixa o POC, tag 0.1.0"],
-          ["--version, -V", "imprime 0.1.0-beta.1"],
+          ["demo [--force]", "baixa o POC v1.0.0 com o CLI do tap atual"],
+          ["--version, -V", "imprime 1.0.0"],
         ]}
       />
       <H2>parse</H2>
@@ -60,7 +63,7 @@ export function CliCommandsPage() {
       <H2>doctor e demo</H2>
       <Ul>
         <li><K>rainbow doctor</K> confere o ambiente do CLI, do LSP e dos editores.</li>
-        <li><K>rainbow demo</K> baixa a tag <K>0.1.0</K> de NShiftUI-Demo. <K>--force</K> baixa de novo.</li>
+        <li><K>rainbow demo</K> no CLI do tap atual baixa a tag <K>v1.0.0</K> de NShiftUI-Demo. <K>--force</K> baixa de novo.</li>
         <li><K>rainbow install --list</K> lista os editores que o instalador reconhece.</li>
       </Ul>
       <CodeBlock
@@ -90,7 +93,7 @@ rainbow install --list
 rainbow install --no-settings cursor`}
       />
       <P>
-        A release <K>v0.1.0-beta.1</K> no GitHub não inclui o <K>.vsix</K>. A fórmula Homebrew empacota a extensão em <K>share/rainbow</K> quando o <K>brew install rainbow</K> consegue clonar o GitLab. Se o VSIX não está lá, o README descreve um fallback com <K>GITLAB_TOKEN</K> (<K>read_api</K>) antes de <K>rainbow install cursor</K>.
+        A release <K>v1.0.0</K> no GitHub contém os pacotes WASM. A fórmula Homebrew empacota o VSIX em <K>share/rainbow</K>.
       </P>
       <P>Para desenvolver a extensão a partir do clone:</P>
       <CodeBlock
